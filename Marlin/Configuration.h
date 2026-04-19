@@ -1123,7 +1123,7 @@
 #define W_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define I_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define J_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -3227,11 +3227,11 @@
   //#define TOUCH_CALIBRATION_Y -8981
   //#define TOUCH_OFFSET_X        -43
   //#define TOUCH_OFFSET_Y        257
-  #define TOUCH_ORIENTATION TOUCH_LANDSCAPE
+  #define TOUCH_ORIENTATION TOUCH_PORTRAIT
 
-  //#if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
-  //  #define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM
-  //#endif
+  #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
+    #define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM
+  #endif
 
   #if ENABLED(TFT_COLOR_UI)
     #define SINGLE_TOUCH_NAVIGATION
