@@ -328,8 +328,8 @@ bool my_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data) {
   static xy_int_t last { 0, 0 };
   data->state = get_point(&last.x, &last.y) ? LV_INDEV_STATE_PR : LV_INDEV_STATE_REL;
   #if ENABLED(SAPPHIRE_PLUS_MKS_UI)
-    data->point.x = TFT_WIDTH - last.x;
-    data->point.y = TFT_HEIGHT - last.y;
+    data->point.x = last.x;
+    data->point.y = last.y;
   #else
     data->point.x = (TFT_ROTATION == TFT_ROTATE_180) ? TFT_WIDTH - last.x : last.x;
     data->point.y = (TFT_ROTATION == TFT_ROTATE_180) ? TFT_HEIGHT - last.y : last.y;
