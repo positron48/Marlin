@@ -57,6 +57,18 @@ jobs:
           cp .pio/build/mks_robin_nano_v1v2/Robin_nano35.bin dist/
           cp .pio/build/mks_robin_nano_v1v2/firmware.bin dist/ || true
           cp .pio/build/mks_robin_nano_v1v2/firmware.elf dist/ || true
+          # Fallback for branches where download_mks_assets.py doesn't populate assets automatically.
+          if [ ! -d ".pio/build/mks_robin_nano_v1v2/assets" ]; then
+            echo "No generated assets found, downloading MKS assets fallback..."
+            mkdir -p .pio/build/mks_robin_nano_v1v2/assets
+            tmp_dir="$(mktemp -d)"
+            curl -fsSL "https://github.com/makerbase-mks/Mks-Robin-Nano-Marlin2.0-Firmware/archive/0263cdaccf.zip" -o "$tmp_dir/mks-assets.zip"
+            unzip -q "$tmp_dir/mks-assets.zip" -d "$tmp_dir/unpack"
+            base_dir="$(find "$tmp_dir/unpack" -maxdepth 1 -type d | tail -n 1)"
+            cp -a "$base_dir/Firmware/mks_font/." .pio/build/mks_robin_nano_v1v2/assets/
+            cp -a "$base_dir/Firmware/mks_pic/." .pio/build/mks_robin_nano_v1v2/assets/
+            rm -rf "$tmp_dir"
+          fi
           if [ -d ".pio/build/mks_robin_nano_v1v2/assets" ]; then
             tar -czf dist/assets-mks_robin_nano_v1v2.tar.gz -C .pio/build/mks_robin_nano_v1v2 assets
           fi
